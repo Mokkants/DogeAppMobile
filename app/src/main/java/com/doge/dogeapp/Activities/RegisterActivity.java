@@ -1,7 +1,7 @@
-package com.doge.dogeapp;
+package com.doge.dogeapp.Activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 public class RegisterActivity extends AppCompatActivity {
 
