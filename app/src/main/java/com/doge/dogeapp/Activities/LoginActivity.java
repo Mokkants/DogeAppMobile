@@ -1,4 +1,4 @@
-package com.doge.dogeapp;
+package com.doge.dogeapp.Activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -8,7 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
-
+import java.lang.String;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
@@ -19,6 +19,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,6 +34,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.doge.dogeapp.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+
 
 /**
  * A login screen that offers login via email/password.
@@ -62,6 +79,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,15 +90,26 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
 
+
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
+
                     return true;
                 }
                 return false;
+            }
+        });
+
+        Button reg_button =  findViewById(R.id.reg_button);
+
+        reg_button.setOnClickListener(new OnClickListener() {
+            public void onClick(View view) {
+                Intent Intent = new Intent(getApplicationContext() , RegisterActivity.class);
+                startActivity(Intent);
+
             }
         });
 
@@ -86,12 +117,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+                attemptLogin(view);
             }
         });
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
     }
 
     private void populateAutoComplete() {
@@ -143,11 +175,55 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    private void attemptLogin() {
-        if (mAuthTask != null) {
-            return;
-        }
 
+    public JSONObject getLoginUser(View view){
+        JSONObject user = new JSONObject();
+
+        EditText username = findViewById(R.id.email);
+        Log.d("test", username.getText().toString());
+
+
+        try{
+            user.put( "username", username.getText().toString());
+        }
+        catch (JSONException e){
+
+        }
+        Log.d("what", user.toString());
+        return user;
+
+    }
+
+    private void attemptLogin(View view) {
+
+
+        final JSONObject loginUser = getLoginUser(view);
+        String url = getString(R.string.url) + "/api/login/authenticate";
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        JsonObjectRequest JSONObjectRequest = new JsonObjectRequest
+                (Request.Method.POST, url, loginUser, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Toast.makeText(getBaseContext(), "login successful", Toast.LENGTH_LONG).show();
+                        Intent Main = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(Main);
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                        Toast.makeText(getBaseContext(), "login failed", Toast.LENGTH_LONG).show();
+                        Log.d("wtf", loginUser.toString());
+                    }
+                });
+
+
+        queue.add(JSONObjectRequest);
+    }
+/*
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
@@ -187,8 +263,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
-        }
-    }
+        }*/
+
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
@@ -289,6 +365,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         int ADDRESS = 0;
         int IS_PRIMARY = 1;
     }
+
+
 
     /**
      * Represents an asynchronous login/registration task used to authenticate
