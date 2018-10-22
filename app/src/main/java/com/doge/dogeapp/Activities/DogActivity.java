@@ -18,16 +18,7 @@ public class DogActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void onClickNewActivity (View view) {
-        TextView mDogView = findViewById(R.id.camelTextView);
-
-        //Starts a new activity, providing the text from my HTTP text field as an input
-        Intent intent = new Intent(this, SecondActivity.class);
-        intent.putExtra(HTTP_PARAM, mDogView.getText().toString());
-        startActivity(intent);
-    }
-
-    public void onClickGetCamels (View view) {
+    public void onClickGetDog (View view) {
         //Get the text view in which we will show the result.
         final TextView mDogView = findViewById(R.id.dogTextView);
 
