@@ -29,9 +29,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".TimelineActivity" />
-        <activity android:name=".DogActivity" />
-
     </application>
 
 </manifest>
