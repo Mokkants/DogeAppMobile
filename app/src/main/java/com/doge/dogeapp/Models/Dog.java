@@ -1,6 +1,7 @@
 package com.doge.dogeapp.Models;
 
 public class Dog {
+    private User owner;
     private String name;
     private String breed;
     private boolean isSocial;
@@ -10,7 +11,16 @@ public class Dog {
 
     }
 
-    public Dog(String name, String breed, boolean isSocial, String shortInfo) {
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public Dog(User user, String name, String breed, boolean isSocial, String shortInfo) {
+        this.owner = user;
         this.name = name;
         this.breed = breed;
         this.isSocial = isSocial;

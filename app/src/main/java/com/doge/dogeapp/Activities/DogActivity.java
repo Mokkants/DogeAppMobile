@@ -14,11 +14,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.doge.dogeapp.Adapters.DogAdapter;
+import com.doge.dogeapp.Helpers.Settings;
 import com.doge.dogeapp.Models.Dog;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class DogActivity extends AppCompatActivity {
 
@@ -42,7 +45,13 @@ public class DogActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     Log.e(this.getClass().toString(), e.getMessage());
                 }
-                Dog[] dogs = gson.fromJson(dataArray, Dog[].class);
+                Dog[] allDogs = gson.fromJson(dataArray, Dog[].class);
+                ArrayList<Dog> dogs = new ArrayList<>();
+                for(int i = 0; i < allDogs.length; i++){
+                    if(allDogs[i].getOwner().equals(Settings.getLoggedInUser())){
+                        dogs.add(allDogs[i]);
+                    }
+                }
                 dogList.setAdapter(new DogAdapter(DogActivity.this, dogs));
             }
         }, new Response.ErrorListener() {

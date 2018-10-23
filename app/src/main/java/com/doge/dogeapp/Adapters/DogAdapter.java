@@ -11,11 +11,13 @@ import android.widget.TextView;
 import com.doge.dogeapp.Activities.R;
 import com.doge.dogeapp.Models.Dog;
 
+import java.util.ArrayList;
+
 public class DogAdapter extends RecyclerView.Adapter<DogAdapter.DogViewHolder> {
     private Context mContext;
-    private Dog[] mData;
+    private ArrayList<Dog> mData;
 
-    public DogAdapter(Context context, Dog[] data)
+    public DogAdapter(Context context, ArrayList<Dog> data)
     {
         this.mContext = context;
         this.mData = data;
@@ -31,7 +33,7 @@ public class DogAdapter extends RecyclerView.Adapter<DogAdapter.DogViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull DogViewHolder holder, int position) {
-        Dog dog = mData[position];
+        Dog dog = mData.get(position);
         holder.nameDog.setText(dog.getName());
         holder.breedDog.setText(dog.getBreed());
         holder.socialDog.setText(dog.getShortInfo());
@@ -39,7 +41,7 @@ public class DogAdapter extends RecyclerView.Adapter<DogAdapter.DogViewHolder> {
 
     @Override
     public int getItemCount() {
-        return mData.length;
+        return mData.size();
     }
 
     public class DogViewHolder extends RecyclerView.ViewHolder {
