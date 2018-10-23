@@ -1,18 +1,21 @@
 package com.doge.dogeapp.Activities;
 
-import android.os.Bundle;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
-import com.doge.dogeapp.R;
+import com.doge.dogeapp.Models.User;
 
 public class MainActivity extends AppCompatActivity {
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    protected void onResume() {
+        super.onResume();
 
+        //TODO
+        //User currentUser = Settings.getCurrentUser();
+        User currentUser = null;
+
+        Class startIntent = currentUser == null ? LoginActivity.class : TimelineActivity.class;
+        startActivity(new Intent(this, startIntent));
     }
 }
-;

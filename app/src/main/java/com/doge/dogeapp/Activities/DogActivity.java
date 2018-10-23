@@ -1,4 +1,7 @@
 package com.doge.dogeapp.Activities;
 
-public class DogActivity {
+import android.support.v7.app.AppCompatActivity;
+
+public class DogActivity extends AppCompatActivity {
+
 }
