@@ -3,15 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="200dp"
     android:layout_marginTop="5dp"
     android:padding="8dp"
     android:background="#939393"
     >
     <ImageView
-        android:layout_width="100dp"
+        android:layout_width="140dp"
         android:layout_height="match_parent"
-        android:id="@+id/image_id"/>
+        android:id="@+id/image_id"
+        android:src="@drawable/trancing_dog"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -23,33 +24,56 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/dog_name"
-        android:text="Name"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:text="Name: "
         android:textStyle="bold"
-        android:textSize="20sp" />
+        android:textSize="20sp"/>
+
+        <TextView
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:id="@+id/dog_name"
+            android:text="Some name"
+            android:textSize="15sp"/>
 
     <TextView
-        android:id="@+id/dog_breed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Breed"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:text="Breed: "
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+        <TextView
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:id="@+id/dog_breed"
+            android:text="Some breed"
+            android:textSize="15sp"/>
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:text="Social: "
         android:textSize="20sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/dog_social"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Social"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:text="Short Info: "
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/dog_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Short Info"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        <TextView
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:id="@+id/dog_info"
+            android:text="Some info"
+            android:textSize="15sp"/>
     </LinearLayout>
 </LinearLayout>
