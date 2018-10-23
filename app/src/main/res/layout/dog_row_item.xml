@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="150dp"
     android:layout_marginTop="5dp"
     android:padding="8dp"
     android:background="#939393"
     >
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:id="@+id/image_id"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="4sp"
+        android:id="@+id/dog_id">
 
     <TextView
         android:layout_width="wrap_content"
@@ -40,5 +51,5 @@
         android:text="Short Info"
         android:textSize="20sp"
         android:textStyle="bold" />
-
+    </LinearLayout>
 </LinearLayout>

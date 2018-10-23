@@ -1,68 +1,57 @@
 package com.doge.dogeapp.Activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.doge.dogeapp.Adapters.DogAdapter;
+import com.doge.dogeapp.Models.Dog;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class DogActivity extends AppCompatActivity {
 
+    private final String URL = getString(R.string.url) + "/api/dogs";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
+        setContentView(R.layout.activity_dog);
+        final RecyclerView dogList = findViewById(R.id.dogList);
+        dogList.setLayoutManager(new LinearLayoutManager(this));
 
-    public void onClickGetDog (View view) {
-        //Get the text view in which we will show the result.
-        final TextView mDogView = findViewById(R.id.dogTextView);
-
-        String url = getString(R.string._url) + "/api/camels";
-
-        //This uses Volley (Threading and a request queue is automatically handled in the background)
-        RequestQueue queue = Volley.newRequestQueue(this);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        //GSON allows to parse a JSON string/JSONObject directly into a user-defined class
-                        Gson gson = new Gson();
-
-                        String dataArray = null;
-
-                        try {
-                            dataArray = response.getString("data");
-                        } catch (JSONException e) {
-                            Log.e(this.getClass().toString(), e.getMessage());
-                        }
-
-                        StringBuilder dogString = new StringBuilder();
-                        dogString.append("This is the list of my dogs: \n");
-
-                        Dog[] dogs = gson.fromJson(dataArray, Dog[].class);
-
-                        for (Dog current : dogs) {
-                            dogString.append("Dog is " + current.name + " at "
-                                    + current.position + "\n");
-                        }
-
-                        mDogView.setText(dogString.toString());
-                    }
-                }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        mDogView.setText("Error! " + error.toString());
-                    }
-                });
-
-        //The request queue makes sure that HTTP requests are processed in the right order.
+                (Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Gson gson = new Gson();
+                String dataArray = null;
+                try {
+                    dataArray = response.getString("data");
+                } catch (JSONException e) {
+                    Log.e(this.getClass().toString(), e.getMessage());
+                }
+                Dog[] dogs = gson.fromJson(dataArray, Dog[].class);
+                dogList.setAdapter(new DogAdapter(DogActivity.this, dogs));
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(DogActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+            }
+        });
+        RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(jsonObjectRequest);
     }
 }
