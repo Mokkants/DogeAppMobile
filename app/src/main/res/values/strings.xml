@@ -19,4 +19,8 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name= "url">http://10.0.2.2:3000</string>
+    <string name="success">Your user was created successfully!</string>
+    <string name="takenUser">The username is already taken!</string>
+    <string name="successLogin">You are now logged in!</string>
 </resources>
