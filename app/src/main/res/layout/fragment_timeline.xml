@@ -13,9 +13,33 @@
 
     <!-- Login progress -->
 
-    <Button
-        android:id="@+id/button"
+    <ProgressBar
+        android:id="@+id/getposts_progress"
+        style="?android:attr/progressBarStyleLarge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="XD" />
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
+
+    <ScrollView
+        android:id="@+id/posts_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/lin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/border"
+                android:text="Add Post" />
+        </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>

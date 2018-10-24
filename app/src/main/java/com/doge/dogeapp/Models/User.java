@@ -5,14 +5,21 @@ import org.json.JSONObject;
 
 public class User {
 
-    private String id;
+    private int _id;
+    private String name;
+
+    public String getName() {
+        return name;
+    }
 
     public User(JSONObject user) throws JSONException {
 
-        this.id = (String) user.getJSONObject("user").get("_id").toString();
+        this._id = Integer.parseInt(user.getJSONObject("user").get("_id").toString());
+        this.name = user.getJSONObject("user").get("name").toString();
+
     }
 
-    public String getId() {
-        return id;
+    public int getId() {
+        return _id;
     }
 }
