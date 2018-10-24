@@ -2,7 +2,6 @@ package com.doge.dogeapp.Activities;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -12,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.doge.dogeapp.Fragments.BaseFragment;
 import com.doge.dogeapp.Fragments.DogFragment;
 import com.doge.dogeapp.Fragments.TimelineFragment;
 import com.doge.dogeapp.Helpers.Settings;
@@ -89,15 +89,16 @@ public class NavigationActivity extends AppCompatActivity
     }
 
     private void replaceContentFragment(Class replacement) {
-        Fragment fragment = null;
+        BaseFragment fragment = null;
         try {
-            fragment = (Fragment) replacement.newInstance();
+            fragment = (BaseFragment) replacement.newInstance();
         } catch (Exception e) {
             e.printStackTrace();
         }
         if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+            setTitle(fragment.getTitle());
         }
     }
 
