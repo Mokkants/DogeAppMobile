@@ -11,8 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -21,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.doge.dogeapp.Activities.R;
+import com.doge.dogeapp.Helpers.Settings;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,7 +59,7 @@ public class CreateDogFragment extends BaseFragment implements View.OnClickListe
 
         try {
 
-            dog.put("owner", mName.getText().toString());
+            dog.put("owner", Settings.getLoggedInUser());
             dog.put("name", mBreed.getText().toString());
             dog.put("breed", mBreed.getText().toString());
             dog.put("isSocial", social);
