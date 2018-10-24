@@ -9,10 +9,33 @@
 
     <!-- Login progress -->
 
-    <android.support.v7.widget.RecyclerView
+    <ProgressBar
+        android:id="@+id/getdogs_progress"
+        style="?android:attr/progressBarStyleLarge"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        android:id="@+id/dogList">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
+
+    <ScrollView
+        android:id="@+id/dogs_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/lin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/border"
+                android:text="Add Dog" />
+        </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>

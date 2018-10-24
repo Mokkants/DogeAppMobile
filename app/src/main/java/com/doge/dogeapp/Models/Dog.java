@@ -1,26 +1,22 @@
 package com.doge.dogeapp.Models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Dog {
-    private User owner;
+    private int _id;
     private String name;
     private String breed;
     private boolean isSocial;
     private String shortInfo;
 
-    public Dog(){
-
+    public Dog(JSONObject current) throws JSONException {
+        this(current.getInt("_id"), current.getString("name"), current.getString("breed"), current.getBoolean("isSocial"), current.getString("shortInfo"));
     }
 
-    public User getOwner() {
-        return owner;
-    }
 
-    public void setOwner(User owner) {
-        this.owner = owner;
-    }
-
-    public Dog(User user, String name, String breed, boolean isSocial, String shortInfo) {
-        this.owner = user;
+    public Dog(int _id, String name, String breed, boolean isSocial, String shortInfo) {
+        this._id = _id;
         this.name = name;
         this.breed = breed;
         this.isSocial = isSocial;
@@ -43,8 +39,11 @@ public class Dog {
         this.breed = breed;
     }
 
-    public boolean isSocial() {
-        return isSocial;
+    public String isSocial() {
+        if (isSocial)
+            return "Yes";
+        else
+            return "No";
     }
 
     public void setSocial(boolean social) {
@@ -57,5 +56,24 @@ public class Dog {
 
     public void setShortInfo(String shortInfo) {
         this.shortInfo = shortInfo;
+    }
+
+    public int get_id() {
+        return _id;
+    }
+
+    public void set_id(int _id) {
+        this._id = _id;
+    }
+
+    @Override
+    public String toString() {
+        return "Dog{" +
+                "_id=" + _id +
+                ", name='" + name + '\'' +
+                ", breed='" + breed + '\'' +
+                ", isSocial='" + isSocial + '\'' +
+                ", shortInfo='" + shortInfo + '\'' +
+                '}';
     }
 }
