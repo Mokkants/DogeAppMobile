@@ -3,11 +3,13 @@ package com.doge.dogeapp.Activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -15,12 +17,19 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-
+import com.android.volley.NetworkResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 
+
+import java.io.IOException;
+import java.net.URL;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+
 public class RegisterActivity extends AppCompatActivity {
+
 
 
     public static final String HTTP_PARAM = "httpResponse";
@@ -73,14 +82,15 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     public void onClickRegister(View view) {
-
         JSONObject newUser = getNewUser(view);
 
-        String url = getString(R.string.url) + "/api/users/";
+       final String url = getString(R.string.url) + "/api/users/";
+
 
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonObjectRequest JSONObjectRequest = new JsonObjectRequest
                 (Request.Method.POST, url, newUser, new Response.Listener<JSONObject>() {
+
 
                     @Override
                     public void onResponse(JSONObject response) {
@@ -90,12 +100,15 @@ public class RegisterActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                        System.out.println(error.getMessage());
-                        Toast.makeText(getBaseContext(), R.string.takenUser, Toast.LENGTH_LONG).show();
+                        if(error.networkResponse == null){
+                            Toast.makeText(getBaseContext(), "Unexpected server error", Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            Toast.makeText(getBaseContext(), R.string.takenUser, Toast.LENGTH_LONG).show();
+
+                        }
                     }
                 });
-
 
         queue.add(JSONObjectRequest);
 
