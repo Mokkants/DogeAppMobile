@@ -3,13 +3,11 @@ package com.doge.dogeapp.Activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
-
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -17,16 +15,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.android.volley.NetworkResponse;
+
 import org.json.JSONException;
 import org.json.JSONObject;
-
-
-
-import java.io.IOException;
-import java.net.URL;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -101,7 +92,7 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         if(error.networkResponse == null){
-                            Toast.makeText(getBaseContext(), "Unexpected server error", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), "No connection.", Toast.LENGTH_LONG).show();
                         }
                         else {
                             Toast.makeText(getBaseContext(), R.string.takenUser, Toast.LENGTH_LONG).show();
